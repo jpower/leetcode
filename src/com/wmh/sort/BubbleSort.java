@@ -28,9 +28,11 @@ public class BubbleSort {
      * @param index
      */
     private void swap(int[] a, int i, int index) {
-//        int t = a[i];
-//        a[i] = a[index];
-//        a[index] = t;
+/*
+        int t = a[i];
+        a[i] = a[index];
+        a[index] = t;
+*/
 
         if(i==index) {
             return;
