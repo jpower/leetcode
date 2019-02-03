@@ -12,7 +12,7 @@ public class BubbleSort {
      * @param a
      */
     public void bubbleSort(int[] a) {
-
+        System.out.println("dsff");
         for (int i = 0; i < a.length - 1; i++) {
             for (int x = 0; x < a.length - 1 - i; x++) {
                 if (a[x] > a[x + 1]) {
