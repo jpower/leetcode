@@ -1,10 +1,18 @@
 package com.wmh.sort;
 
+import org.junit.Test;
+
 /**
  * Created by 周大侠
  * 2019-02-03 10:40
  */
 public class SelectSort {
+
+    @Test
+    public void fun1(){
+        double a = 7/(double)2;
+        System.out.println(a);
+    }
     /**
      * 优化选择排序
      *

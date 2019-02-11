@@ -1,5 +1,8 @@
 package com.wmh.code;
 
+import com.wmh.ListNode;
+import com.wmh.RandomListNode;
+
 import java.util.*;
 
 /**
@@ -263,8 +266,6 @@ public class LinkedSolution {
      * @return
      */
     public ListNode detectCycle(ListNode head) {
-
-
         ListNode slowNode = head;
         ListNode fastNode = head;
         ListNode meetNode = null;
@@ -294,31 +295,55 @@ public class LinkedSolution {
      * @return
      */
     public RandomListNode copyRandomList(RandomListNode head) {
-        Map<RandomListNode, Integer> map = new HashMap<>();
-        RandomListNode newDummyNode = new RandomListNode(0);
-        RandomListNode node = newDummyNode;
-        int size = 0;
-        RandomListNode head1 = head;
-        while (head1 != null) {
-            size++;
-            node.next = new RandomListNode(head1.label);
+        Map<RandomListNode,RandomListNode> map = new HashMap();
+        RandomListNode node = head;
+        while(node!=null){
+            map.put(node,new RandomListNode(node.label));
             node = node.next;
-            map.put(head1, size);
-            head1 = head1.next;
-        }
-        RandomListNode newHead = newDummyNode.next;
-        RandomListNode newHead1 = newHead;
-        while (head != null) {
-            if (head.random != null) {
-                Integer integer = map.get(head.random);
-                newHead1.random = findNode(newHead1, integer);
-            }
-            newHead1 = newHead1.next;
-            head = head.next;
         }
 
+        node = head;
+        while(node!=null){
+            map.get(node).next = map.get(node.next);
+            map.get(node).random = map.get(node.random);
 
-        return newDummyNode.next;
+            node = node.next;
+        }
+        return map.get(head);
+    }
+    /**
+     * leetcode 138 复制带随机指针的链表 不用map 额外空间复杂度O(1)
+     * @param head
+     * @return
+     */
+    public RandomListNode copyRandomList1(RandomListNode head) {
+        if(head==null){
+            return null;
+        }
+        RandomListNode node = head;
+        while(node!=null){
+            RandomListNode newNode = new RandomListNode(node.label);
+            newNode.next = node.next;
+            node.next = newNode;
+            node = newNode.next;
+        }
+
+        node = head;
+        while(node!=null&&node.next!=null){
+            node.next.random = node.random!=null ? node.random.next : null;
+            node = node.next.next;
+        }
+        node = head;
+        RandomListNode res = head.next;
+        while(node!=null&&node.next!=null){
+            RandomListNode next = node.next.next;
+            RandomListNode copyNode = node.next;
+            node.next = next;
+            copyNode.next = node.next!=null ? next.next:null;
+            node = next;
+        }
+        return res;
+
     }
 
     /**
@@ -392,41 +417,6 @@ public class LinkedSolution {
     }
 
 
-
-
-
-    /**
-     * 查找指定位置所在的节点
-     *
-     * @return
-     */
-    private RandomListNode findNode(RandomListNode head, int site) {
-        while (head != null && --site > 0) {
-
-            head = head.next;
-        }
-        return head;
-
-
-    }
-
-
 }
 
-class RandomListNode {
-    int label;
-    RandomListNode next, random;
-
-    RandomListNode(int x) {
-        this.label = x;
-    }
-}
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
-}
 
