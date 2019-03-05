@@ -1,4 +1,4 @@
-package com.wmh.code;
+package com.wmh.code.linked;
 
 import com.wmh.ListNode;
 

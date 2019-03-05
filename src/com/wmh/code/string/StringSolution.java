@@ -1,4 +1,4 @@
-package com.wmh.code;
+package com.wmh.code.string;
 
 import java.util.Arrays;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.wmh.code;
+package com.wmh.code.linked;
 
 import com.wmh.ListNode;
 import com.wmh.RandomListNode;
@@ -84,23 +84,42 @@ public class LinkedSolution {
      * @return
      */
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        if (head == null) {
-            return null;
+//        if (head == null) {
+//            return null;
+//        }
+//        ListNode dummy = new ListNode(0);
+//        dummy.next = head;
+//        ListNode temp = head;
+//        int size = 1;
+//        while (temp.next != null) {
+//            size++;
+//            temp = temp.next;
+//        }
+//        temp = dummy;
+//        for (int i = 0; i < size - n; i++) {
+//            temp = temp.next;
+//        }
+//        temp.next = temp.next.next;
+//        return dummy.next;
+        if(head == null || n == 0) {
+            return head;
         }
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode head1 = dummy;
-        int size = 0;
-        while (head1.next != null) {
-            size++;
-            head1 = head1.next;
+        ListNode temp = head;
+        while(temp != null) {
+            n--;
+            temp = temp.next;
         }
-        ListNode head2 = dummy;
-        for (int i = 0; i < size - n; i++) {
-            head2 = head2.next;
+        if(n == 0){
+            head = head.next;
+        }else if(n < 0) {
+            temp = head;
+            // 注意n+1的顺序 目的是要找到要删除的前一个结点
+            while(++n != 0) {
+                temp = temp.next;
+            }
+            temp.next = temp.next.next;
         }
-        head2.next = head2.next.next;
-        return dummy.next;
+        return head;
     }
 
     /**
